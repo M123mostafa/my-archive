@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Cyan to Deep Blue Gradient -->
+    <linearGradient id="cyanBlue" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Gold Accent Gradient -->
+    <linearGradient id="goldGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    
+    <!-- Outer Ring Gradient -->
+    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0891b2" />
+      <stop offset="50%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#06b6d4" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Dark Circular Base Background for Tab Visibility -->
+  <circle cx="256" cy="256" r="240" fill="#090a0f" stroke="#1e293b" stroke-width="4" />
+
+  <!-- Outer Ring Sweep -->
+  <path d="M 100 280 A 170 170 0 1 1 410 200" fill="none" stroke="url(#ringGradient)" stroke-width="24" stroke-linecap="round" />
+
+  <!-- M Shape Ribbons with Ascending Arrow -->
+  <g filter="url(#glow)">
+    <!-- Left Leg of M -->
+    <path d="M 120 370 C 100 310, 110 220, 180 180 C 230 155, 250 200, 265 240 L 220 340 C 180 340, 140 370, 120 370 Z" fill="url(#cyanBlue)" />
+
+    <!-- Center Gold Ribbon Curve -->
+    <path d="M 180 300 C 210 250, 260 210, 310 170 C 350 140, 380 120, 400 90 L 370 180 C 320 220, 270 260, 230 330 Z" fill="url(#goldGradient)" />
+
+    <!-- Right Ascending Arrow Arm -->
+    <path d="M 270 340 C 290 280, 330 200, 390 110 L 355 125 L 420 70 L 410 145 L 380 125 C 330 210, 295 280, 270 340 Z" fill="url(#cyanBlue)" />
+  </g>
+</svg>

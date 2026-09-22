@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: "Lernarchiv — Fachinformatiker Systemintegration",
   description: "Persönliches digitales Wissensarchiv für die Umschulung zum Fachinformatiker Systemintegration.",
   keywords: ["Lernarchiv", "Fachinformatiker", "Systemintegration", "IT", "Umschulung"],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "Lernarchiv — Fachinformatiker Systemintegration",
     description: "Persönliches digitales Wissensarchiv für die Umschulung zum Fachinformatiker Systemintegration.",
