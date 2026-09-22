@@ -110,6 +110,8 @@ export async function GET() {
     } catch (error) {
       console.error("Supabase GET /api/lessons error:", error);
     }
+  if (isSupabaseConfigured) {
+    return NextResponse.json({ ok: true, mode: "cloud", lessons: [] });
   }
 
   return NextResponse.json({ ok: true, mode: "client-only", lessons: [] });
