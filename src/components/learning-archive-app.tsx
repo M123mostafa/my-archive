@@ -501,7 +501,7 @@ export default function LearningArchiveApp() {
   const lastFrameAtRef = useRef<number | null>(null);
   const lastScrollAtRef = useRef(Date.now());
 
-  const [storageMode, setStorageMode] = useState<"cloud" | "local">("local");
+  const [storageMode, setStorageMode] = useState<"cloud" | "local">("cloud");
 
   useEffect(() => {
     let mounted = true;
@@ -840,8 +840,8 @@ export default function LearningArchiveApp() {
               <p className="text-xs uppercase tracking-[0.28em] text-zinc-200/80">LERNARCHIV</p>
               <div className="flex items-center gap-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/40 px-3 py-1 text-xs text-zinc-300">
-                  <span className={cn("h-2 w-2 rounded-full", storageMode === "cloud" ? "bg-emerald-400 animate-pulse" : "bg-amber-400")} />
-                  {storageMode === "cloud" ? "Cloud Sync (R2 + Postgres)" : "Local Storage"}
+                  <span className={cn("h-2 w-2 rounded-full", isLoading ? "bg-amber-400 animate-ping" : storageMode === "cloud" ? "bg-emerald-400 animate-pulse" : "bg-amber-400")} />
+                  {isLoading ? "Connecting Cloud..." : storageMode === "cloud" ? "Cloud Sync (R2 + Postgres)" : "Local Storage"}
                 </span>
                 <p className="hidden text-xs text-zinc-300/75 sm:block">Fachinformatiker Systemintegration</p>
                 {isAuthenticated ? (
