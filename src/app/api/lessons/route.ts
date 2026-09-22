@@ -30,7 +30,7 @@ async function ensureTables() {
         name TEXT NOT NULL,
         type TEXT NOT NULL,
         size INTEGER NOT NULL,
-        last_modified INTEGER,
+        last_modified BIGINT,
         r2_key TEXT NOT NULL,
         url TEXT NOT NULL,
         created_at TEXT NOT NULL
@@ -81,10 +81,10 @@ export async function GET() {
       const { data: fetchedLessons, error: lessonsErr } = await supabase
         .from("lessons")
         .select("*")
-        .order("updatedAt", { ascending: false });
+        .order("updated_at", { ascending: false });
 
       if (lessonsErr) {
-        console.warn("Supabase fetch warning:", lessonsErr.message);
+        console.error("Supabase fetch warning:", lessonsErr.message);
         return NextResponse.json({ ok: true, mode: "cloud", lessons: [] });
       }
 
@@ -92,7 +92,13 @@ export async function GET() {
       const filesList = fetchedFiles || [];
 
       const result = (fetchedLessons || []).map((lesson: any) => ({
-        ...lesson,
+        id: lesson.id,
+        week: lesson.week,
+        date: lesson.date,
+        title: lesson.title,
+        description: lesson.description,
+        createdAt: lesson.created_at || lesson.createdAt || new Date().toISOString(),
+        updatedAt: lesson.updated_at || lesson.updatedAt || new Date().toISOString(),
         files: filesList
           .filter((f: any) => f.lesson_id === lesson.id || f.lessonId === lesson.id)
           .map((f: any) => ({
@@ -110,6 +116,8 @@ export async function GET() {
     } catch (error) {
       console.error("Supabase GET /api/lessons error:", error);
     }
+  }
+
   if (isSupabaseConfigured) {
     return NextResponse.json({ ok: true, mode: "cloud", lessons: [] });
   }
@@ -250,18 +258,22 @@ export async function POST(request: Request) {
   // Save via Supabase Client
   if (isSupabaseConfigured && supabase) {
     try {
-      await supabase.from("lessons").upsert({
+      const { error: upsertErr } = await supabase.from("lessons").upsert({
         id,
         week,
         date,
         title,
         description,
-        createdAt,
-        updatedAt,
+        created_at: createdAt,
+        updated_at: updatedAt,
       });
 
+      if (upsertErr) {
+        console.error("Supabase upsert error:", upsertErr.message);
+      }
+
       for (const rec of uploadedRecords) {
-        await supabase.from("lesson_files").upsert({
+        const { error: fileErr } = await supabase.from("lesson_files").upsert({
           id: rec.id,
           lesson_id: rec.lessonId,
           name: rec.name,
@@ -272,6 +284,10 @@ export async function POST(request: Request) {
           url: rec.url,
           created_at: rec.createdAt,
         });
+
+        if (fileErr) {
+          console.error("Supabase file upsert error:", fileErr.message);
+        }
       }
 
       const allFiles = [...keptFiles, ...uploadedRecords];
