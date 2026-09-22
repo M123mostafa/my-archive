@@ -837,7 +837,11 @@ export default function LearningArchiveApp() {
 
           <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-12 pt-8 sm:px-10 lg:px-16">
             <header className="flex items-center justify-between">
-              <p className="text-xs uppercase tracking-[0.28em] text-zinc-200/80">LERNARCHIV</p>
+              <div className="flex items-center gap-2.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.png" alt="Lernarchiv Logo" className="h-7 w-7 rounded-full object-cover drop-shadow-md" />
+                <p className="text-xs font-medium uppercase tracking-[0.28em] text-zinc-200/90">LERNARCHIV</p>
+              </div>
               <div className="flex items-center gap-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/40 px-3 py-1 text-xs text-zinc-300">
                   <span className={cn("h-2 w-2 rounded-full", isLoading ? "bg-amber-400 animate-ping" : storageMode === "cloud" ? "bg-emerald-400 animate-pulse" : "bg-amber-400")} />

@@ -13,9 +13,13 @@ export const metadata: Metadata = {
   description: "Persönliches digitales Wissensarchiv für die Umschulung zum Fachinformatiker Systemintegration.",
   keywords: ["Lernarchiv", "Fachinformatiker", "Systemintegration", "IT", "Umschulung"],
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "Lernarchiv — Fachinformatiker Systemintegration",
@@ -33,6 +37,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="de">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
+      </head>
       <body className={`${inter.className} bg-[#060607] text-zinc-100 antialiased`}>{children}</body>
     </html>
   );
